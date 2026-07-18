@@ -1,0 +1,47 @@
+# Fail CI when any deploy/intune/*.ps1 exceeds the EAC 50 KB (51200 byte) ceiling.
+name: intune-stub-size
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  stub-size:
+    name: EAC stub ≤50 KB
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Size gate script
+        shell: pwsh
+        run: |
+          & ./scripts/Test-IntuneStubSize.ps1 -AgentSummary
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Ensure Pester 5+
+        shell: pwsh
+        run: |
+          $pester = Get-Module -ListAvailable -Name Pester |
+            Sort-Object Version -Descending |
+            Select-Object -First 1
+          if (-not $pester -or $pester.Version -lt [version]'5.0.0') {
+            Install-Module -Name Pester -MinimumVersion 5.0.0 -Force `
+              -SkipPublisherCheck -Scope CurrentUser
+          }
+
+      - name: Pester unit (stub size)
+        shell: pwsh
+        run: |
+          Import-Module Pester -MinimumVersion 5.0.0
+          $cfg = New-PesterConfiguration
+          $cfg.Run.Path = './tests/unit'
+          $cfg.Run.Exit = $true
+          $cfg.Output.Verbosity = 'Detailed'
+          Invoke-Pester -Configuration $cfg

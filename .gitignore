@@ -1,0 +1,12 @@
+# Ignore local noise
+*.log
+audit-output/
+
+# Machine-local lab notes (copy from lab-host.example.md)
+docs/lab-host.md
+
+# Ad-hoc lab drafts (may contain host paths)
+scripts/_drafts/
+
+# Cursor agent / VM workspace state (not part of the product)
+.cursor/
