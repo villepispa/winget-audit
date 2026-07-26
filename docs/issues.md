@@ -11,12 +11,15 @@ Product-local IDs: `WGA-NNN`. Keep IDs stable; never reuse.
 
 | ID | Summary | Status | Notes |
 |----|---------|--------|-------|
-| WGA-011 | Publish WinGet.Audit to GitHub (`villepispa`) | In progress | Plan: `plans/2026-07-18_wga-011-publish-github_a7c3e91f.plan.md`; public MIT `villepispa/winget-audit`; `lab-host.md` gitignored |
+| WGA-014 | Agent-compat full-pass remediations (docs + deps UX) | Open | From 2026-07-25 full pass (blended **53/100**). Top: README Agents/Validate-first; one Gallery prereq block; scoped `-TestPath`/`-Path` + duration note; `stage=deps` Install-Module hint. Non-top: deploy/intune Stubs table; CI workflow name clarity; `-SkipLint` in README; Safety stub `-AgentSummary` example; optional `-CheckOnly` bootstrap. Deferred: CODEOWNERS / pre-commit. Fabric: `docs/oss/agent-compatibility-ps-products.md` § 1.4. |
+| WGA-013 | Post–agent-compat re-score hygiene (cold-host deps + conflict junk) | Verified | Validate `stage=deps` preflight + README Install-Module pair; Proton Drive `docs/issues (# Edit conflict…)` removed (already absent). Fabric re-score 52/100. |
+| WGA-012 | Agent-compat remediations (validate + PSA; README SSOT) | Verified | `Invoke-WgaValidate.ps1` + Pester/PSA entries; CI; README Validate; no AGENTS.md. Smoke `WGA-VALIDATE-OK` (15/15, lint 0). |
+| WGA-011 | Publish WinGet.Audit to GitHub (`villepispa`) | Verified | https://github.com/villepispa/winget-audit — public MIT; `main` @ `3df91cd`; origin SSH |
 | WGA-010 | Live SCCM/Intune pilot (Present vs Current on real assignment) | Open | Beyond lab WGA-009: deploy `scripts/` + stubs to fixed path; set `WGA_AUDIT_ROOT`/`WGA_PACKAGE_ID`; device and/or user collection; capture exit codes + User vs SYSTEM divergence. Checklist: [pilot-intune-detect.md](pilot-intune-detect.md) |
 | WGA-009 | Intune Present/Current stub pilot (`WGA_AUDIT_ROOT` / `WGA_PACKAGE_ID`) | Verified | User lab: WAR 1.5 Present=0 Current=0 fake Present=1. Doc: [pilot-intune-detect.md](pilot-intune-detect.md) |
 | WGA-008 | SCCM user-collection detect: LocalAppData winget when WindowsApps ACL blocks | Verified | Doc + `Resolve-WinGetExe` step 3 (`%LOCALAPPDATA%\Microsoft\WindowsApps\winget.exe` non-SYSTEM only). See [detection-semantics.md](detection-semantics.md) |
 | WGA-007 | Detection states: installed vs update-available (CLI alone insufficient) | Verified | Classifier + `Invoke-WinGetPackageDetect.ps1`; Intune Present/Current stubs; smoke WAR 1.5 InstalledCurrent + fake NotInstalled. Spec: [detection-semantics.md](detection-semantics.md) |
-| WGA-006 | Re-test / adopt winget 1.28–1.29 list automation improvements | Verified | Lab 1.29.280: redirected list needs no cell cleanup (ellipsis=0); `-LegacyCellCleanup` opt-in; `--no-progress`+`--sort id` with degrade; `listDetails` experimental not adopted. Plan: `plans/2026-07-18_wga-006-list-automation_6ffb4d64.plan.md` |
+| WGA-006 | Re-test / adopt winget 1.28–1.29 list automation improvements | Verified | Lab 1.29.280: redirected list needs no cell cleanup (ellipsis=0); `-LegacyCellCleanup` opt-in; `--no-progress`+`--sort id` with degrade; `listDetails` experimental not adopted. |
 | WGA-005 | SYSTEM inventory via WindowsApps winget.exe + 5.1 CLI parse (no fleet pwsh) | Verified | `Resolve-WinGetExe` + `Invoke-WinGetInventoryCliDemo.ps1`; parser `#Requires 5.1`; User smoke 6 updates (PS 5.1.26100) |
 | WGA-004 | Dual-host inventory (Windows PowerShell 5.1 + pwsh) | Verified | 5.1 entry hops to pwsh (`Get-WinGetPackage` pwsh-only); Plane A |
 | WGA-001 | Module-primary inventory + JSON compare demo | Resolved | `scripts/Invoke-WinGetInventoryDemo.ps1`; module 1.29.280 CurrentUser; smoke 5 IsUpdateAvailable |
@@ -26,6 +29,13 @@ Product-local IDs: `WGA-NNN`. Keep IDs stable; never reuse.
 ## Activity
 
 <!-- ISSUES-ACTIVITY+ -->
+- **2026-07-26 19:56:00** — Cut Keep a Changelog release **0.2.0** (WGA-012/013 validate gate + lessons-learnt + VirusTotal workflow); Unreleased holds **WGA-010** / **WGA-014**.
+- **2026-07-25 09:01:40** — Filed **WGA-014** Open: full-pass Top + non-top remediable fixes (fabric blended 53/100); no product code yet.
+- **2026-07-25 07:34:00** — **WGA-013** Verified: validate Gallery dep preflight (`stage=deps`); README Install-Module pair; sync-conflict issues copy gone.
+- **2026-07-24 18:52:18** — **WGA-012** Verified: validate gate + PSA + README; local `WGA-VALIDATE-OK` (15/15, lint 0).
+- **2026-07-18 23:16:00** — Cut Keep a Changelog release **0.1.0** (bootstrap → WGA-011 publish); left **WGA-010** under Unreleased.
+- **2026-07-18 18:43:31** — Added [lessons-learnt.md](lessons-learnt.md) covering WGA-001–011 (planes, detect, dual-host, publish).
+- **2026-07-18 18:24:39** — WGA-011 Verified: [villepispa/winget-audit](https://github.com/villepispa/winget-audit) public; Stream pushed `main` @ `3df91cd` (origin SSH).
 - **2026-07-18 14:04:39** — WGA-011 In progress: plan filed; MIT LICENSE; gitignore `docs/lab-host.md` + `.cursor/`; scrub host paths for first push.
 - **2026-07-18 14:00:00** — Filed **WGA-010** (live SCCM/Intune pilot) and **WGA-011** (publish to [github.com/villepispa](https://github.com/villepispa)).
 - **2026-07-18 13:45:00** — WGA-009 Verified: Intune stub pilot via `WGA_AUDIT_ROOT`/`WGA_PACKAGE_ID` — Present=0, Current=0, fake Present=1 (`Microsoft.WindowsAppRuntime.1.5`); [pilot-intune-detect.md](pilot-intune-detect.md).

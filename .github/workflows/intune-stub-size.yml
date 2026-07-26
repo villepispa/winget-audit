@@ -1,4 +1,4 @@
-# Fail CI when any deploy/intune/*.ps1 exceeds the EAC 50 KB (51200 byte) ceiling.
+# Fail CI when Intune stubs exceed 50 KB, unit tests fail, or PSA finds issues.
 name: intune-stub-size
 
 on:
@@ -13,35 +13,33 @@ concurrency:
 
 jobs:
   stub-size:
-    name: EAC stub ≤50 KB
+    name: Validate (stub + Pester + PSA)
     runs-on: windows-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Size gate script
-        shell: pwsh
-        run: |
-          & ./scripts/Test-IntuneStubSize.ps1 -AgentSummary
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-
-      - name: Ensure Pester 5+
+      - name: Ensure Pester 5.5+
         shell: pwsh
         run: |
           $pester = Get-Module -ListAvailable -Name Pester |
             Sort-Object Version -Descending |
             Select-Object -First 1
-          if (-not $pester -or $pester.Version -lt [version]'5.0.0') {
-            Install-Module -Name Pester -MinimumVersion 5.0.0 -Force `
+          if (-not $pester -or $pester.Version -lt [version]'5.5.0') {
+            Install-Module -Name Pester -MinimumVersion 5.5.0 -Force `
               -SkipPublisherCheck -Scope CurrentUser
           }
 
-      - name: Pester unit (stub size)
+      - name: Ensure PSScriptAnalyzer
         shell: pwsh
         run: |
-          Import-Module Pester -MinimumVersion 5.0.0
-          $cfg = New-PesterConfiguration
-          $cfg.Run.Path = './tests/unit'
-          $cfg.Run.Exit = $true
-          $cfg.Output.Verbosity = 'Detailed'
-          Invoke-Pester -Configuration $cfg
+          if (-not (Get-Module -ListAvailable -Name PSScriptAnalyzer)) {
+            Install-Module -Name PSScriptAnalyzer -Force `
+              -SkipPublisherCheck -Scope CurrentUser
+          }
+
+      - name: Validate
+        shell: pwsh
+        run: |
+          & ./scripts/Invoke-WgaValidate.ps1 -AgentSummary
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

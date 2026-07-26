@@ -6,12 +6,50 @@ Versioning: [SemVer](https://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- **WGA-014:** Filed Open — agent-compat full-pass remediations (README
+  validate-first, scoped loops, deps AgentSummary hint, deploy/intune Stubs,
+  CI name clarity; deferred CODEOWNERS/pre-commit). See `docs/issues.md`.
+
 ### Added
 
-- **WGA-011:** public GitHub publish prep — MIT `LICENSE`, expanded `.gitignore`
-  (`docs/lab-host.md`, `scripts/_drafts/`, `.cursor/`),
-  [docs/lab-host.example.md](docs/lab-host.example.md); scrub host paths from
-  committed docs.
+- **WGA-010:** Live SCCM/Intune pilot (Present vs Current on real assignment) —
+  beyond lab WGA-009; see [docs/pilot-intune-detect.md](docs/pilot-intune-detect.md)
+  and `docs/issues.md`.
+
+## [0.2.0] — 2026-07-26
+
+### Added
+
+- **WGA-013:** Cold-host validate deps — README Install-Module pair for
+  Pester (≥5.5) + PSScriptAnalyzer; `Invoke-WgaValidate.ps1` fails fast with
+  `WGA-VALIDATE-FAIL stage=deps` (no auto-install). Removed Proton Drive
+  sync-conflict junk under `docs/` when present.
+- **WGA-012:** Repo-root agent validate gate —
+  `scripts/Invoke-WgaValidate.ps1` (stub size → Pester → PSScriptAnalyzer),
+  `tests/Invoke-WgaPester.ps1`, `scripts/Invoke-WgaScriptAnalyzer.ps1`,
+  `PSScriptAnalyzerSettings.psd1`; README Validate section (no `AGENTS.md`);
+  CI job runs the same validate entry.
+- [docs/lessons-learnt.md](docs/lessons-learnt.md) — bootstrap → first publish
+  lessons (`WGA-001`–`WGA-011`).
+- VirusTotal release URL scan —
+  `.github/workflows/virustotal-release-scan.yml` on `release: published`
+  (and manual dispatch); README notes `VIRUSTOTAL_API_KEY` secret (never commit).
+
+### Changed
+
+- `Get-WgaDetectionState.ps1` — PSA suppress for unused `PackageId` on the
+  public classifier contract (callers pass Id for logging/API symmetry).
+
+## [0.1.0] — 2026-07-18
+
+### Added
+
+- **WGA-011:** published https://github.com/villepispa/winget-audit (public MIT;
+  `main` @ `3df91cd`). Prep: expanded `.gitignore` (`docs/lab-host.md`,
+  `scripts/_drafts/`, `.cursor/`), [docs/lab-host.example.md](docs/lab-host.example.md);
+  scrub host paths from committed docs.
 - **WGA-009:** [docs/pilot-intune-detect.md](docs/pilot-intune-detect.md) —
   Present/Current stub pilot with `WGA_AUDIT_ROOT` / `WGA_PACKAGE_ID`
   (WAR 1.5: Present=0, Current=0, fake Present=1).

@@ -14,6 +14,10 @@
 function Resolve-WgaDetectionState {
     [CmdletBinding()]
     [OutputType([string])]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute(
+        'PSReviewUnusedParameter',
+        'PackageId',
+        Justification = 'Public classifier contract — callers pass Id for logging/API symmetry; state uses Installed/versions only.')]
     param(
         [Parameter(Mandatory)]
         [AllowEmptyString()]
