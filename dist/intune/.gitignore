@@ -1,0 +1,2 @@
+# Generated Intune upload scripts — rebuild with scripts/Build-WgaIntuneScripts.ps1
+*.ps1

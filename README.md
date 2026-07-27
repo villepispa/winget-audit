@@ -45,12 +45,16 @@ pwsh -NoProfile -File .\scripts\Invoke-WinGetInventoryDemoAsSystem.ps1 `
 | `docs/issues.md` | Product issue register (`WGA-*`) |
 | `docs/system-matrix.md` | User vs SYSTEM (PsExec / Intune) |
 | `docs/lab-host.example.md` | Template for machine-local PsExec / paths (`lab-host.md` gitignored) |
-| `docs/pilot-intune-detect.md` | Present/Current stub pilot (`WGA_*` env) |
+| `docs/pilot-intune-detect.md` | Present/Current stub + standalone pilot (`WGA_*` env) |
 | `docs/eac-migration.md` | Detect/Remediate → EAC notes |
 | `docs/detection-semantics.md` | Installed vs update-available (WGA-007) |
 | `docs/spine-consumption.md` | Optional Spine probe-envelope |
 | `scripts/Get-WgaDetectionState.ps1` | Detection classifier (dot-source) |
+| `scripts/Wga.Detect.Runtime.ps1` | Plane A/B detect helpers (bundle + lab) |
 | `scripts/Invoke-WinGetPackageDetect.ps1` | One-package Presence / UpToDate detect |
+| `scripts/Build-WgaIntuneScripts.ps1` | Merge sources → `dist/intune/` Present + Current |
+| `scripts/intune/` | `bundle-order.json` + Entry templates (DSM-style) |
+| `dist/intune/` | Generated Intune upload scripts (gitignored `*.ps1`) |
 | `scripts/Invoke-WinGetInventoryDemo.ps1` | Plane A: module inventory + compare (PS 5.1 hops → pwsh) |
 | `scripts/Invoke-WinGetInventoryCliDemo.ps1` | Plane B: WindowsApps winget + 5.1 CLI parse (no pwsh) |
 | `scripts/Resolve-WinGetExe.ps1` | Resolve DesktopAppInstaller `winget.exe` (dot-source) |
@@ -62,7 +66,7 @@ pwsh -NoProfile -File .\scripts\Invoke-WinGetInventoryDemoAsSystem.ps1 `
 | `tests/Invoke-WgaPester.ps1` | Pester entry for `tests/unit` |
 | `PSScriptAnalyzerSettings.psd1` | Product PSA settings |
 | `scripts/fallback/` | Plane B CLI text→object (`#Requires 5.1`) |
-| `deploy/intune/` | ≤50 KB stubs (Ensure + Present/Current detect) |
+| `deploy/intune/` | ≤50 KB EAC/lab stubs (Ensure + Present/Current; need tree or `WGA_AUDIT_ROOT`) |
 
 ## Validate
 

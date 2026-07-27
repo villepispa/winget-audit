@@ -21,11 +21,19 @@ updates. Stubs here support EAC (and optional detect-only checks). Do not grow a
 second full updater in this folder. Migration notes:
 [docs/eac-migration.md](../../docs/eac-migration.md).
 
+**Standalone Proactive Remediation / SCCM detect** (no tree on device): rebuild
+with `scripts/Build-WgaIntuneScripts.ps1` → `dist/intune/Detect-WinGetPackagePresent.ps1`
+and `Detect-WinGetPackageCurrent.ps1`
+(see [pilot-intune-detect.md](../../docs/pilot-intune-detect.md)). That path is
+not size-gated by this folder’s 50 KB EAC rule.
+
 ## Stubs
 
 | Script | Role | Exit codes |
 |--------|------|------------|
 | `Ensure-WinGetClient.ps1` | Bootstrap readiness for `Microsoft.WinGet.Client` | `0` ready/installed; `1` missing (or `-WhatIf`); `2` install error |
+| `Detect-WinGetPackagePresent.ps1` | Presence (WGA-007); calls `Invoke-WinGetPackageDetect` | `0` installed; `1` NotInstalled |
+| `Detect-WinGetPackageCurrent.ps1` | UpToDate (WGA-007) | `0` InstalledCurrent; `1` otherwise |
 
 ```powershell
 # Check only (probes Microsoft.WinGet.Client under pwsh)

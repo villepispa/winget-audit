@@ -15,8 +15,19 @@ Versioning: [SemVer](https://semver.org/).
 ### Added
 
 - **WGA-010:** Live SCCM/Intune pilot (Present vs Current on real assignment) —
-  beyond lab WGA-009; see [docs/pilot-intune-detect.md](docs/pilot-intune-detect.md)
+  beyond lab WGA-009; standalone bundles shipped in **0.3.0**; live assignment
+  still Open — see [docs/pilot-intune-detect.md](docs/pilot-intune-detect.md)
   and `docs/issues.md`.
+
+## [0.3.0] — 2026-07-27
+
+### Added
+
+- **WGA-010 (prep):** DSM-style Intune detect bundles —
+  `scripts/Build-WgaIntuneScripts.ps1`, `scripts/intune/bundle-order.json`,
+  Present + Current Entry templates → `dist/intune/Detect-WinGetPackage*.ps1`
+  (~24 KB each); `scripts/Wga.Detect.Runtime.ps1` shared with lab detect.
+  Docs: [pilot-intune-detect.md](docs/pilot-intune-detect.md).
 
 ## [0.2.0] — 2026-07-26
 

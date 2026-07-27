@@ -15,7 +15,7 @@ Product-local IDs: `WGA-NNN`. Keep IDs stable; never reuse.
 | WGA-013 | Post–agent-compat re-score hygiene (cold-host deps + conflict junk) | Verified | Validate `stage=deps` preflight + README Install-Module pair; Proton Drive `docs/issues (# Edit conflict…)` removed (already absent). Fabric re-score 52/100. |
 | WGA-012 | Agent-compat remediations (validate + PSA; README SSOT) | Verified | `Invoke-WgaValidate.ps1` + Pester/PSA entries; CI; README Validate; no AGENTS.md. Smoke `WGA-VALIDATE-OK` (15/15, lint 0). |
 | WGA-011 | Publish WinGet.Audit to GitHub (`villepispa`) | Verified | https://github.com/villepispa/winget-audit — public MIT; `main` @ `3df91cd`; origin SSH |
-| WGA-010 | Live SCCM/Intune pilot (Present vs Current on real assignment) | Open | Beyond lab WGA-009: deploy `scripts/` + stubs to fixed path; set `WGA_AUDIT_ROOT`/`WGA_PACKAGE_ID`; device and/or user collection; capture exit codes + User vs SYSTEM divergence. Checklist: [pilot-intune-detect.md](pilot-intune-detect.md) |
+| WGA-010 | Live SCCM/Intune pilot (Present vs Current on real assignment) | Open | Standalone Present + Current bundles ready (`Build-WgaIntuneScripts.ps1` → `dist/intune/`). Still need live assignment: set `WGA_PACKAGE_ID`; capture exit codes + User vs SYSTEM. Checklist: [pilot-intune-detect.md](pilot-intune-detect.md) |
 | WGA-009 | Intune Present/Current stub pilot (`WGA_AUDIT_ROOT` / `WGA_PACKAGE_ID`) | Verified | User lab: WAR 1.5 Present=0 Current=0 fake Present=1. Doc: [pilot-intune-detect.md](pilot-intune-detect.md) |
 | WGA-008 | SCCM user-collection detect: LocalAppData winget when WindowsApps ACL blocks | Verified | Doc + `Resolve-WinGetExe` step 3 (`%LOCALAPPDATA%\Microsoft\WindowsApps\winget.exe` non-SYSTEM only). See [detection-semantics.md](detection-semantics.md) |
 | WGA-007 | Detection states: installed vs update-available (CLI alone insufficient) | Verified | Classifier + `Invoke-WinGetPackageDetect.ps1`; Intune Present/Current stubs; smoke WAR 1.5 InstalledCurrent + fake NotInstalled. Spec: [detection-semantics.md](detection-semantics.md) |
@@ -29,6 +29,9 @@ Product-local IDs: `WGA-NNN`. Keep IDs stable; never reuse.
 ## Activity
 
 <!-- ISSUES-ACTIVITY+ -->
+- **2026-07-27 21:24:00** — Cut Keep a Changelog release **0.3.0** (standalone Intune Present/Current bundles); Unreleased holds **WGA-010** live pilot / **WGA-014**.
+- **2026-07-27 21:18:00** — WGA-010 prep: standalone **UpToDate** Entry + builder emits `Detect-WinGetPackageCurrent.ps1` alongside Present.
+- **2026-07-27 16:57:00** — WGA-010 prep: DSM-style `Build-WgaIntuneScripts.ps1` + `Wga.Detect.Runtime`; standalone Present ~23 KB under `dist/intune/`; thin `deploy/intune/` stubs unchanged.
 - **2026-07-26 19:56:00** — Cut Keep a Changelog release **0.2.0** (WGA-012/013 validate gate + lessons-learnt + VirusTotal workflow); Unreleased holds **WGA-010** / **WGA-014**.
 - **2026-07-25 09:01:40** — Filed **WGA-014** Open: full-pass Top + non-top remediable fixes (fabric blended 53/100); no product code yet.
 - **2026-07-25 07:34:00** — **WGA-013** Verified: validate Gallery dep preflight (`stage=deps`); README Install-Module pair; sync-conflict issues copy gone.
