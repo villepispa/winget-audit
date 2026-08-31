@@ -1,0 +1,4 @@
+# Generated audit reports
+**/audit-output/
+scripts/_drafts/**
+.cursor/

@@ -6,8 +6,21 @@ Versioning: [SemVer](https://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- Repo-root markdownlint (`.markdownlint.json` + `.markdownlint-cli2.jsonc`).
+- Call-through VS Code tasks (`.vscode/tasks.json`); default ScriptSafetyGate
+  path is `scripts/Invoke-WgaValidate.ps1`.
+- **WGA-015:** Dual-host GitHub Actions (`.github/workflows/dual-host-ps.yml`)
+  — Pester via `tests/Invoke-WgaPester.ps1` on `pwsh` and Windows PowerShell
+  5.1, plus `Invoke-WinGetInventoryPs51SmokeTest.ps1`. Complements
+  `intune-stub-size.yml` (full `Invoke-WgaValidate.ps1` on pwsh).
+
 ### Changed
 
+- Dual-host CI and `intune-stub-size.yml`: `actions/checkout@v4` → `@v7` (Node 24).
+- VirusTotal workflow: `actions/upload-artifact@v4` → `@v7` (Node 24). GitHub
+  hosted runners deprecated Node 20 and warn when v4 runs on Node 24 runners.
 - **WGA-014:** Filed Open — agent-compat full-pass remediations (README
   validate-first, scoped loops, deps AgentSummary hint, deploy/intune Stubs,
   CI name clarity; deferred CODEOWNERS/pre-commit). See `docs/issues.md`.
@@ -57,7 +70,7 @@ Versioning: [SemVer](https://semver.org/).
 
 ### Added
 
-- **WGA-011:** published https://github.com/villepispa/winget-audit (public MIT;
+- **WGA-011:** published <https://github.com/villepispa/winget-audit> (public MIT;
   `main` @ `3df91cd`). Prep: expanded `.gitignore` (`docs/lab-host.md`,
   `scripts/_drafts/`, `.cursor/`), [docs/lab-host.example.md](docs/lab-host.example.md);
   scrub host paths from committed docs.

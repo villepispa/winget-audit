@@ -100,6 +100,14 @@ third-party `agent-compatibility` scanners often classify PowerShell-first
 trees as `unknown` (no `package.json` / Node layout); treat that as a scanner
 blind spot, not a quality verdict.
 
+Optional Task palette (needs `CURSOR_CONFIG_ROOT`): `.vscode/tasks.json`.
+
+**CI:** [`.github/workflows/intune-stub-size.yml`](.github/workflows/intune-stub-size.yml)
+runs the same `Invoke-WgaValidate.ps1` as local. Additional
+[`.github/workflows/dual-host-ps.yml`](.github/workflows/dual-host-ps.yml)
+runs Pester on `pwsh` and Windows PowerShell 5.1 plus
+`Invoke-WinGetInventoryPs51SmokeTest.ps1`.
+
 ## Requirements
 
 - Windows 10/11 with WinGet / App Installer

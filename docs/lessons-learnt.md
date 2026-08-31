@@ -1,7 +1,7 @@
 # WinGet.Audit — lessons learnt
 
 **Period:** 2026-07-17 → 2026-07-18 (bootstrap through first GitHub publish)  
-**Repo:** https://github.com/villepispa/winget-audit  
+**Repo:** <https://github.com/villepispa/winget-audit>  
 **Scope:** Lab-verified product work (`WGA-001`–`WGA-011`); live estate pilot
 (`WGA-010`) still open.
 
