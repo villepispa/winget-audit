@@ -2,11 +2,12 @@
 Describe 'Plane B CLI parser' {
     BeforeAll {
         $repoRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
-        if (-not (Test-Path -LiteralPath (Join-Path $repoRoot 'scripts\fallback'))) {
+        $harness = Join-Path $repoRoot 'tests\helpers\Import-WgaTestHarness.ps1'
+        if (-not (Test-Path -LiteralPath $harness)) {
             $repoRoot = Split-Path -Parent $PSScriptRoot
+            $harness = Join-Path $repoRoot 'tests\helpers\Import-WgaTestHarness.ps1'
         }
-        . (Join-Path $repoRoot 'scripts\fallback\Convert-WingetTextToObject.ps1')
-        . (Join-Path $repoRoot 'scripts\Resolve-WinGetExe.ps1')
+        . $harness
     }
 
     It 'parses a minimal winget list WindowsAppRuntime table' {

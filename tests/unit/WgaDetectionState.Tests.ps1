@@ -2,10 +2,12 @@
 Describe 'WGA-007 detection classifier' {
     BeforeAll {
         $repoRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
-        if (-not (Test-Path -LiteralPath (Join-Path $repoRoot 'scripts\Get-WgaDetectionState.ps1'))) {
+        $harness = Join-Path $repoRoot 'tests\helpers\Import-WgaTestHarness.ps1'
+        if (-not (Test-Path -LiteralPath $harness)) {
             $repoRoot = Split-Path -Parent $PSScriptRoot
+            $harness = Join-Path $repoRoot 'tests\helpers\Import-WgaTestHarness.ps1'
         }
-        . (Join-Path $repoRoot 'scripts\Get-WgaDetectionState.ps1')
+        . $harness
     }
 
     It 'NotInstalled when no match' {

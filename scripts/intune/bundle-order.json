@@ -1,10 +1,14 @@
 {
   "description": "Source merge order for standalone Intune detect (Build-WgaIntuneScripts.ps1)",
-  "moduleRootRelative": "scripts",
+  "moduleRootRelative": "src/WinGet.Audit",
   "sources": [
-    "Get-WgaDetectionState.ps1",
-    "Resolve-WinGetExe.ps1",
-    "fallback/Convert-WingetTextToObject.ps1",
-    "Wga.Detect.Runtime.ps1"
+    "Private/Wga.Cli.ps1",
+    "Private/Wga.Detect.ps1",
+    "Public/Resolve-WgaDetectionState.ps1",
+    "Public/Get-WgaDetectionExitCode.ps1",
+    "Public/New-WgaDetectionResult.ps1",
+    "Public/Resolve-WinGetExe.ps1",
+    "Public/Convert-WingetTextToObject.ps1",
+    "Public/Invoke-WgaDetectPackage.ps1"
   ]
 }

@@ -36,7 +36,7 @@ a second updater and **not** another CLI text→object gist.
 | Goal | Notes |
 |------|--------|
 | **Primary inventory** | `Microsoft.WinGet.Client` objects → JSON log / compare |
-| **CLI text fallback** | Only when module/COM unavailable; see `scripts/fallback/` |
+| **CLI text fallback** | Only when the Client module/COM is unavailable; `Convert-WingetTextToObject` in `src/WinGet.Audit` |
 | **Version compare** | Installed vs available; distinguish *applicable* update vs *newer in catalog* |
 | **Detection states** | Orthogonal: **installed?** vs **update available?** — do not collapse into one winget switch; see [detection-semantics.md](detection-semantics.md) (WGA-007) |
 | **Context axis** | `User` \| `SYSTEM` documented and tested |
@@ -90,9 +90,9 @@ a second updater and **not** another CLI text→object gist.
 1. **Prefer** `Microsoft.WinGet.Client` when **pwsh** is available (objects,
    `IsUpdateAvailable`, `AvailableVersions`).
 2. **Else** (PS 5.1 SYSTEM / no fleet pwsh): WindowsApps **`winget.exe` full path**
-   via `scripts/Resolve-WinGetExe.ps1` + CLI text parser
-   (`scripts/fallback/Convert-WingetTextToObject.ps1`, `#Requires 5.1`) —
-   demo `scripts/Invoke-WinGetInventoryCliDemo.ps1` (**WGA-005** Verified).
+   via `Resolve-WinGetExe` + `Convert-WingetTextToObject` in `src/WinGet.Audit`
+   (`#Requires 5.1`) — demo `scripts/Invoke-WinGetInventoryCliDemo.ps1`
+   (**WGA-005** Verified).
 3. **Never** treat PATH `winget` under SYSTEM as the supported entry.
 
 ## 8. Related landscape (do not reinvent)

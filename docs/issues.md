@@ -24,7 +24,7 @@ Product-local IDs: `WGA-NNN`. Keep IDs stable; never reuse.
 | WGA-005 | SYSTEM inventory via WindowsApps winget.exe + 5.1 CLI parse (no fleet pwsh) | Verified | `Resolve-WinGetExe` + `Invoke-WinGetInventoryCliDemo.ps1`; parser `#Requires 5.1`; User smoke 6 updates (PS 5.1.26100) |
 | WGA-004 | Dual-host inventory (Windows PowerShell 5.1 + pwsh) | Verified | 5.1 entry hops to pwsh (`Get-WinGetPackage` pwsh-only); Plane A |
 | WGA-001 | Module-primary inventory + JSON compare demo | Resolved | `scripts/Invoke-WinGetInventoryDemo.ps1`; module 1.29.280 CurrentUser; smoke 5 IsUpdateAvailable |
-| WGA-002 | CLI text parser as fallback only | Resolved | Vendored improved gist → `scripts/fallback/`; not a public OSS pitch |
+| WGA-002 | CLI text parser as fallback only | Resolved | Vendored improved gist; lives in `src/WinGet.Audit` (`Convert-WingetTextToObject`). Not a public OSS pitch |
 | WGA-003 | Intune/EAC ≤50 KB stub policy + detect/remediate → EAC migration notes | Verified | Stub + size CI; SYSTEM via PsExec `-BootstrapModule` → context SYSTEM, 8 packages, exit 0 (2026-07-17) |
 
 ## Activity

@@ -6,7 +6,20 @@ Versioning: [SemVer](https://semver.org/).
 
 ## [Unreleased]
 
-_Nothing queued — latest release: **0.3.1**._
+_Nothing queued._
+
+## [0.4.0] — 2026-10-12
+
+### Changed
+
+- **Module layout:** domain logic moved from loose `scripts/` into
+  `src/WinGet.Audit` (`Public/` + `Private/`), same shape as Driver Store
+  Manager. Exported: `Resolve-WgaDetectionState`, `Get-WgaDetectionExitCode`,
+  `New-WgaDetectionResult`, `Resolve-WinGetExe`, `Convert-WingetTextToObject`,
+  `Invoke-WgaDetectPackage`. Lab scripts import the module. Intune bundles
+  still concat those sources (`scripts/intune/bundle-order.json`).
+  See [docs/architecture.md](docs/architecture.md).
+- Intune builder status lines use `Write-Output` (`PSAvoidUsingWriteHost`).
 
 ## [0.3.1] — 2026-10-12
 

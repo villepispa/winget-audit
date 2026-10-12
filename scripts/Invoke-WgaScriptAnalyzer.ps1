@@ -6,11 +6,13 @@
 .DESCRIPTION
   **Safety tier: 1** (read-only static analysis; no network).
 
-  Scans scripts/ (excluding _drafts) and deploy/intune/ using the repo-root
-  PSScriptAnalyzerSettings.psd1. Does not depend on .cursor catalog lint.
+  Scans src/WinGet.Audit, scripts/ (excluding _drafts), and deploy/intune/
+  using the repo-root PSScriptAnalyzerSettings.psd1. Does not depend on
+  .cursor catalog lint.
 
 .PARAMETER Path
-  Optional extra roots or files. Default: scripts + deploy/intune under repo root.
+  Optional extra roots or files. Default: src/WinGet.Audit, scripts, and
+  deploy/intune under repo root.
 
 .PARAMETER SettingsPath
   Optional settings .psd1. Default: ../PSScriptAnalyzerSettings.psd1.
@@ -70,7 +72,9 @@ if ($Path -and $Path.Count -gt 0) {
     }
 }
 else {
+    $targets += (Join-Path $repoRoot.Path 'src\WinGet.Audit')
     $targets += (Join-Path $repoRoot.Path 'scripts')
+    $targets += (Join-Path $repoRoot.Path 'tests\helpers')
     $targets += (Join-Path $repoRoot.Path 'deploy\intune')
 }
 

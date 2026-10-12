@@ -6,7 +6,7 @@
 .DESCRIPTION
   **Safety tier: 2** (writes generated bundles to dist/intune; no network).
 
-  Concatenates scripts listed in scripts/intune/bundle-order.json, appends
+  Concatenates module sources listed in scripts/intune/bundle-order.json, appends
   Presence and UpToDate entry templates, and emits
   Detect-WinGetPackagePresent.ps1 and Detect-WinGetPackageCurrent.ps1.
   Exit 0 on success. Pattern mirrors driver-store-manager Build-DsmIntuneScripts.ps1.
@@ -30,9 +30,8 @@
   powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\Build-WgaIntuneScripts.ps1
 
 .NOTES
-  Rebuild after changing Get-WgaDetectionState / Resolve-WinGetExe / fallback /
-  Wga.Detect.Runtime or Entry templates. Generated dist/ files are
-  auto-generated — edit sources and re-run this script.
+  Rebuild after changing src/WinGet.Audit or Entry templates. Generated
+  dist/ files are auto-generated — edit the module and re-run this script.
   deploy/intune/ stubs stay thin for EAC ≤50 KB; this output is for Proactive
   Remediation / SCCM detect when the product tree is not on the endpoint.
 
@@ -100,7 +99,7 @@ function New-WgaStandaloneScript {
 # WinGet.Audit — Intune $ScriptType script
 # Generated: $generatedAt
 # Builder host PS: $psVersion
-# Do not edit by hand; change scripts/ and run scripts/Build-WgaIntuneScripts.ps1
+# Do not edit by hand; change src/WinGet.Audit and run scripts/Build-WgaIntuneScripts.ps1
 # </auto-generated>
 #Requires -Version 5.1
 
@@ -150,9 +149,9 @@ try {
         SourceFileCount = @($manifest.sources).Count
     } | Format-List
 
-    Write-Host 'Upload Present and/or Current to Intune (64-bit, SYSTEM or user as needed).' -ForegroundColor Green
-    Write-Host 'One question per script. Set WGA_PACKAGE_ID. See docs/pilot-intune-detect.md.' -ForegroundColor Cyan
-    Write-Host 'EAC stubs remain under deploy/intune/.' -ForegroundColor Cyan
+    Write-Output 'Upload Present and/or Current to Intune (64-bit, SYSTEM or user as needed).'
+    Write-Output 'One question per script. Set WGA_PACKAGE_ID. See docs/pilot-intune-detect.md.'
+    Write-Output 'EAC stubs remain under deploy/intune/.'
 
     if ($AgentSummary) {
         Write-Output ("WGA-BUILD-OK presentBytes={0} currentBytes={1} sources={2}" -f `

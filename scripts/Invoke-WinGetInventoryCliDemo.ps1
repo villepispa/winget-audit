@@ -42,8 +42,8 @@ if (-not $PSBoundParameters.ContainsKey('Json')) {
     $Json = $true
 }
 
-. (Join-Path $PSScriptRoot 'Resolve-WinGetExe.ps1')
-. (Join-Path $PSScriptRoot 'fallback\Convert-WingetTextToObject.ps1')
+$moduleManifest = Join-Path $PSScriptRoot '..\src\WinGet.Audit\WinGet.Audit.psd1'
+Import-Module $moduleManifest -Force
 
 $who = [Security.Principal.WindowsIdentity]::GetCurrent()
 $isSystem = $who.User.Value -eq 'S-1-5-18'

@@ -48,24 +48,25 @@ pwsh -NoProfile -File .\scripts\Invoke-WinGetInventoryDemoAsSystem.ps1 `
 | `docs/pilot-intune-detect.md` | Present/Current stub + standalone pilot (`WGA_*` env) |
 | `docs/eac-migration.md` | Detect/Remediate → EAC notes |
 | `docs/detection-semantics.md` | Installed vs update-available (WGA-007) |
+| `docs/architecture.md` | Module layout, planes, Intune bundle |
 | `docs/spine-consumption.md` | Optional Spine probe-envelope |
-| `scripts/Get-WgaDetectionState.ps1` | Detection classifier (dot-source) |
-| `scripts/Wga.Detect.Runtime.ps1` | Plane A/B detect helpers (bundle + lab) |
-| `scripts/Invoke-WinGetPackageDetect.ps1` | One-package Presence / UpToDate detect |
-| `scripts/Build-WgaIntuneScripts.ps1` | Merge sources → `dist/intune/` Present + Current |
-| `scripts/intune/` | `bundle-order.json` + Entry templates (DSM-style) |
+| `src/WinGet.Audit/` | Module (`WinGet.Audit.psd1` / `.psm1`, PS 5.1+) |
+| `src/WinGet.Audit/Public/` | Exported: detection state, `Resolve-WinGetExe`, CLI parser, `Invoke-WgaDetectPackage` |
+| `src/WinGet.Audit/Private/` | `Wga.Cli.ps1` (cell slice), `Wga.Detect.ps1` (Plane A/B helpers) |
+| `scripts/Invoke-WinGetPackageDetect.ps1` | Lab detect entry (imports the module) |
+| `scripts/Build-WgaIntuneScripts.ps1` | Merge module sources → `dist/intune/` Present + Current |
+| `scripts/intune/` | `bundle-order.json` + Entry templates |
 | `dist/intune/` | Generated Intune upload scripts (gitignored `*.ps1`) |
-| `scripts/Invoke-WinGetInventoryDemo.ps1` | Plane A: module inventory + compare (PS 5.1 hops → pwsh) |
-| `scripts/Invoke-WinGetInventoryCliDemo.ps1` | Plane B: WindowsApps winget + 5.1 CLI parse (no pwsh) |
-| `scripts/Resolve-WinGetExe.ps1` | Resolve DesktopAppInstaller `winget.exe` (dot-source) |
+| `scripts/Invoke-WinGetInventoryDemo.ps1` | Plane A: Client module inventory + compare (PS 5.1 hops → pwsh) |
+| `scripts/Invoke-WinGetInventoryCliDemo.ps1` | Plane B: WindowsApps winget + CLI parse (imports the module) |
 | `scripts/Invoke-WinGetInventoryPs51SmokeTest.ps1` | Plane A Intune-host floor smoke |
 | `scripts/Invoke-WinGetInventoryDemoAsSystem.ps1` | Plane A PsExec SYSTEM wrapper |
 | `scripts/Test-IntuneStubSize.ps1` | ≤50 KB gate for `deploy/intune/` |
 | `scripts/Invoke-WgaValidate.ps1` | Repo-root validate (stub size + Pester + PSA) |
-| `scripts/Invoke-WgaScriptAnalyzer.ps1` | PSScriptAnalyzer on `scripts/` + `deploy/intune/` |
+| `scripts/Invoke-WgaScriptAnalyzer.ps1` | PSScriptAnalyzer on `src/`, `scripts/`, `tests/helpers/`, `deploy/intune/` |
+| `tests/helpers/Import-WgaTestHarness.ps1` | Pester dot-source (Private then Public) |
 | `tests/Invoke-WgaPester.ps1` | Pester entry for `tests/unit` |
 | `PSScriptAnalyzerSettings.psd1` | Product PSA settings |
-| `scripts/fallback/` | Plane B CLI text→object (`#Requires 5.1`) |
 | `deploy/intune/` | ≤50 KB EAC/lab stubs (Ensure + Present/Current; need tree or `WGA_AUDIT_ROOT`) |
 
 ## Validate

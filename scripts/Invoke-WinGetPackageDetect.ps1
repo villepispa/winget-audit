@@ -11,7 +11,7 @@
   Default Plane B: WindowsApps winget.exe list WITHOUT --upgrade-available
   (empty upgrade list must not mean not-installed). Optional Plane A when
   pwsh + Microsoft.WinGet.Client are available (-Plane A|Auto).
-  Lab entry: dotsources scripts then Invoke-WgaDetectPackage.
+  Lab entry: imports src/WinGet.Audit then calls Invoke-WgaDetectPackage.
   Intune upload: rebuild via scripts/Build-WgaIntuneScripts.ps1.
 
 .PARAMETER PackageId
@@ -57,10 +57,8 @@ if (-not $PSBoundParameters.ContainsKey('Json')) {
     $Json = $true
 }
 
-. (Join-Path $PSScriptRoot 'Get-WgaDetectionState.ps1')
-. (Join-Path $PSScriptRoot 'Resolve-WinGetExe.ps1')
-. (Join-Path $PSScriptRoot 'fallback\Convert-WingetTextToObject.ps1')
-. (Join-Path $PSScriptRoot 'Wga.Detect.Runtime.ps1')
+$moduleManifest = Join-Path $PSScriptRoot '..\src\WinGet.Audit\WinGet.Audit.psd1'
+Import-Module $moduleManifest -Force
 
 $invokeParams = @{
     PackageId    = $PackageId

@@ -1,63 +1,30 @@
 #Requires -Version 5.1
-<#
-.SYNOPSIS
-    Convert winget CLI table text into PSCustomObjects (Plane B fallback).
-
-.DESCRIPTION
-    **Safety tier: 1**
-
-    Read-only parser for Windows PowerShell 5.1 and PowerShell 7+.
-    Improves on https://gist.github.com/marzme/34fe1a7a003b60847bb26fbff865bf51:
-    - Filters pin / upgrades-available footers
-    - Column slice by header char offsets (no ConvertFrom-String datetime coercion)
-    - Explicit-target section trim
-    Prefer Microsoft.WinGet.Client (Plane A) when pwsh is available.
-
-    WGA-006 (winget 1.29+): redirected list uses full column widths — ellipsis /
-    mojibake cell strip is OFF by default. Pass -LegacyCellCleanup for older
-    App Installer builds that truncates redirected tables.
-
-.NOTES
-    Dot-source this file, then pipe winget stdout into Convert-WingetTextToObject.
-#>
-
-function Get-WgaWingetCell {
-    param(
-        [string] $Row,
-        [int] $Start,
-        [int] $NextStart,
-        [switch] $LegacyCellCleanup
-    )
-    if ($Start -ge $Row.Length) {
-        return ''
-    }
-    $len = if ($NextStart -lt 0) {
-        $Row.Length - $Start
-    }
-    else {
-        [Math]::Min($NextStart, $Row.Length) - $Start
-    }
-    if ($len -le 0) {
-        return ''
-    }
-    $cell = $Row.Substring($Start, $len).Trim()
-    if (-not $LegacyCellCleanup) {
-        return $cell
-    }
-    # Pre-1.29 truncated redirected tables: strip ellipsis / registered mojibake.
-    $cell = $cell.Replace([string][char]0x2026, '')
-    $cell = $cell.Replace(
-        ([string][char]0x00E2) + [char]0x20AC + [char]0x00A6, '')
-    $cell = $cell.Replace(
-        ([string][char]0x00C3) + [char]0x82 + [char]0x00C2 + [char]0x00AE, '')
-    $cell = $cell.Replace(([string][char]0x00C2) + [char]0x00AE, '')
-    $cell = $cell.Replace([string][char]0x00AE, '')
-    $cell = $cell.Replace(([string][char]0x00C2) + [char]0x00AB, '')
-    $cell = $cell.Replace([string][char]0x00AB, '')
-    return $cell.Trim()
-}
 
 function Convert-WingetTextToObject {
+    <#
+    .SYNOPSIS
+        Convert winget CLI table text into PSCustomObjects (Plane B fallback).
+
+    .DESCRIPTION
+        **Safety tier: 1**
+
+        Read-only parser for Windows PowerShell 5.1 and PowerShell 7+.
+        Improves on a fixed-width gist parser:
+        - Filters pin / upgrades-available footers
+        - Column slice by header char offsets (no ConvertFrom-String datetime coercion)
+        - Explicit-target section trim
+        Prefer Microsoft.WinGet.Client (Plane A) when pwsh is available.
+
+        winget 1.29+: redirected list uses full column widths — ellipsis /
+        mojibake cell strip is OFF by default. Pass -LegacyCellCleanup for older
+        App Installer builds that truncate redirected tables.
+
+    .PARAMETER WingetRawText
+        winget stdout lines (pipeline or argument).
+
+    .PARAMETER LegacyCellCleanup
+        Strip ellipsis and mojibake from cells. Off by default.
+    #>
     [CmdletBinding()]
     [OutputType([pscustomobject])]
     param(

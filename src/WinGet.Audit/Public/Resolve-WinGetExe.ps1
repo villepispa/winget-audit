@@ -1,22 +1,22 @@
 #Requires -Version 5.1
-<#
-.SYNOPSIS
-    Function Resolve-WinGetExe — Desktop App Installer winget.exe paths.
-
-.DESCRIPTION
-    **Safety tier: 1**
-
-    Dot-source this file, then call Resolve-WinGetExe. Resolution order:
-    1. Glob under Program Files\WindowsApps (ACL allows — typical SYSTEM)
-    2. Get-AppxPackage InstallLocation (User often cannot *enumerate* WindowsApps)
-    3. Non-SYSTEM only: %LOCALAPPDATA%\Microsoft\WindowsApps\winget.exe
-       (SCCM user-collection detection — see docs/detection-semantics.md)
-
-    For SYSTEM inventory prefer (1)/(2). Do not use the user LocalAppData
-    App Execution Alias as the SYSTEM Plane B entry.
-#>
 
 function Resolve-WinGetExe {
+    <#
+    .SYNOPSIS
+        Resolve a usable Desktop App Installer winget.exe path.
+
+    .DESCRIPTION
+        **Safety tier: 1**
+
+        Resolution order:
+        1. Glob under Program Files\WindowsApps (ACL allows — typical SYSTEM)
+        2. Get-AppxPackage InstallLocation (User often cannot enumerate WindowsApps)
+        3. Non-SYSTEM only: %LOCALAPPDATA%\Microsoft\WindowsApps\winget.exe
+           (SCCM user-collection detection — see docs/detection-semantics.md)
+
+        For SYSTEM inventory prefer (1)/(2). Do not use the user LocalAppData
+        App Execution Alias as the SYSTEM Plane B entry.
+    #>
     [CmdletBinding()]
     [OutputType([string])]
     param(

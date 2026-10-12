@@ -235,7 +235,7 @@ $data = [ordered]@{
     notes         = @(
         'Primary path is Microsoft.WinGet.Client - not winget.exe text parse.',
         'IsUpdateAvailable means applicable upgrade, not merely newer catalog version.',
-        'CLI text fallback: scripts/fallback/Convert-WingetTextToObject.ps1',
+        'CLI text fallback: Convert-WingetTextToObject in src/WinGet.Audit.',
         'Optional Spine envelope: docs/spine-consumption.md',
         'Inventory API requires pwsh 7+; Windows PowerShell 5.1 entry hops to pwsh (WGA-004).'
     )

@@ -23,9 +23,9 @@ Two inventory planes exist. Pick by fleet constraint (PS7 allowed or not).
 
 | Script | Role |
 |--------|------|
-| `scripts/Resolve-WinGetExe.ps1` | Dot-source; WindowsApps glob → Appx InstallLocation → (User) LocalAppData `WindowsApps\winget.exe` |
-| `scripts/fallback/Convert-WingetTextToObject.ps1` | `#Requires 5.1` table parser |
-| `scripts/Invoke-WinGetInventoryCliDemo.ps1` | Read-only inventory JSON (`--accept-source-agreements`) |
+| `Resolve-WinGetExe` (`src/WinGet.Audit`) | WindowsApps glob → Appx InstallLocation → (User) LocalAppData `WindowsApps\winget.exe` |
+| `Convert-WingetTextToObject` (`src/WinGet.Audit`) | `#Requires 5.1` table parser |
+| `scripts/Invoke-WinGetInventoryCliDemo.ps1` | Read-only inventory JSON (`--accept-source-agreements`); imports the module |
 
 ```powershell
 # User or SYSTEM — no pwsh required

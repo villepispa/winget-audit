@@ -7,7 +7,8 @@
 
 This note captures decisions that surprised us, what to repeat, and what to avoid.
 It complements the charter ([product-brief.md](product-brief.md)), not a second
-brief.
+brief. Paths below are the 2026-07 bootstrap tree. Current layout:
+[architecture.md](architecture.md).
 
 ---
 
