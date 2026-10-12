@@ -6,6 +6,16 @@ Versioning: [SemVer](https://semver.org/).
 
 ## [Unreleased]
 
+_Nothing queued — latest release: **0.3.1**._
+
+## [0.3.1] — 2026-10-12
+
+### Fixed
+
+- **AI assistance log:** `docs/ai-assistance-log.md` renders as one GitHub table.
+  The `<!-- AAI+ -->` marker sits in the newest row's When cell. A comment on
+  its own line under the header made GitHub show only the header.
+
 ### Added
 
 - Repo-root markdownlint (`.markdownlint.json` + `.markdownlint-cli2.jsonc`).

@@ -1,11 +1,11 @@
 # AI assistance log — WinGet.Audit
 
 Human-readable disclosure for substantive AI-assisted phases.
+Newest-first. The `<!-- AAI+ -->` marker stays in the newest row's When cell.
 
 | When | Phase / scope | Deliverable | Tool / model | Purpose | Verified by |
 |------|---------------|-------------|--------------|---------|-------------|
-<!-- AAI+ -->
-| 2026-08-18 09:40:00 | markdownlint bar | `.markdownlint.json` + `.markdownlint-cli2.jsonc`; MD034 URL wraps | Cursor Agent [Tier 2: cursor-grok-4.6] | Match sibling product lint config | `npx markdownlint-cli2` 0 issues |
+| <!-- AAI+ --> 2026-08-18 09:40:00 | markdownlint bar | `.markdownlint.json` + `.markdownlint-cli2.jsonc`; MD034 URL wraps | Cursor Agent [Tier 2: cursor-grok-4.6] | Match sibling product lint config | `npx markdownlint-cli2` 0 issues |
 | 2026-08-18 09:11:00 | Product ShellGuard pack | `.cursor/hooks.json` + hook scripts from spine template | Cursor Agent [Tier 2: cursor-grok-4.6] | Local Safety-tier gate on `pwsh -File` (gitignored) | User: install from spine; Core SHA-256 match |
 | 2026-07-27 21:24:00 | Release 0.3.0 cut + publish | CHANGELOG `[0.3.0]`; tag+GH Release | Cursor Agent + Stream [Tier 2: composer-2.5-fast] | Ship DSM-style Intune Present/Current standalone bundles (WGA-010 prep) | <https://github.com/villepispa/winget-audit/releases/tag/v0.3.0> |
 | 2026-07-27 21:18:00 | WGA-010 prep — standalone UpToDate | Detect-WinGetPackageCurrent.Entry + builder dual emit | Cursor Agent [Tier 2: composer-2.5-fast] | Match Present with Current for live Intune upload | WGA-BUILD-OK present=current ~24 KB; PS 5.1 smoke WAR 1.5 |
