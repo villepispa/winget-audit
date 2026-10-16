@@ -6,13 +6,13 @@ Versioning: [SemVer](https://semver.org/).
 
 ## [Unreleased]
 
-_Nothing queued._
+_Nothing queued — latest release: **0.4.0**._
 
 ## [0.4.0] — 2026-10-12
 
 ### Changed
 
-- **Module layout:** domain logic moved from loose `scripts/` into
+- **WGA-016:** Module layout. Domain logic moved from loose `scripts/` into
   `src/WinGet.Audit` (`Public/` + `Private/`), same shape as Driver Store
   Manager. Exported: `Resolve-WgaDetectionState`, `Get-WgaDetectionExitCode`,
   `New-WgaDetectionResult`, `Resolve-WinGetExe`, `Convert-WingetTextToObject`,

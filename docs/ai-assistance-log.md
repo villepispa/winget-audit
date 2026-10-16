@@ -5,7 +5,8 @@ Newest-first. The `<!-- AAI+ -->` marker stays in the newest row's When cell.
 
 | When | Phase / scope | Deliverable | Tool / model | Purpose | Verified by |
 |------|---------------|-------------|--------------|---------|-------------|
-| <!-- AAI+ --> 2026-10-12 17:52:58 | Module layout | `src/WinGet.Audit` Public/Private; `docs/architecture.md` | Cursor Agent [Tier 1: grok-4.7] | Match Driver Store Manager module shape | Pester 15/15; WGA-LINT-OK files=23; WGA-BUILD-OK sources=8 |
+| <!-- AAI+ --> 2026-10-16 15:24:00 | Release register sync | docs/issues.md WGA-016 for 0.4.0; Open holds WGA-014 and WGA-010 | Cursor Grok 4.7 [Tier 2: grok-4.7] | Keep the issue register aligned with tag v0.4.0 | WGA-016 cited; Unreleased names 0.4.0 |
+| 2026-10-12 17:52:58 | Module layout | `src/WinGet.Audit` Public/Private; `docs/architecture.md` | Cursor Agent [Tier 1: grok-4.7] | Match Driver Store Manager module shape | Pester 15/15; WGA-LINT-OK files=23; WGA-BUILD-OK sources=8 |
 | 2026-08-18 09:40:00 | markdownlint bar | `.markdownlint.json` + `.markdownlint-cli2.jsonc`; MD034 URL wraps | Cursor Agent [Tier 2: cursor-grok-4.6] | Match sibling product lint config | `npx markdownlint-cli2` 0 issues |
 | 2026-08-18 09:11:00 | Product ShellGuard pack | `.cursor/hooks.json` + hook scripts from spine template | Cursor Agent [Tier 2: cursor-grok-4.6] | Local Safety-tier gate on `pwsh -File` (gitignored) | User: install from spine; Core SHA-256 match |
 | 2026-07-27 21:24:00 | Release 0.3.0 cut + publish | CHANGELOG `[0.3.0]`; tag+GH Release | Cursor Agent + Stream [Tier 2: composer-2.5-fast] | Ship DSM-style Intune Present/Current standalone bundles (WGA-010 prep) | <https://github.com/villepispa/winget-audit/releases/tag/v0.3.0> |
